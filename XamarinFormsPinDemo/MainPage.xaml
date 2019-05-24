@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XamarinFormsPinDemo"
+             x:Class="XamarinFormsPinDemo.MainPage"
+             xmlns:converters="clr-namespace:XamarinFormsPinDemo;assembly=XamarinFormsPinDemo"
+             xmlns:behaviors="clr-namespace:XamarinFormsPinDemo;assembly=XamarinFormsPinDemo">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:PinEntry1Converter x:Key="PinEntry1Converter" />
+            <converters:PinEntry2Converter x:Key="PinEntry2Converter" />
+            <converters:PinEntry3Converter x:Key="PinEntry3Converter" />
+            <converters:PinEntry4Converter x:Key="PinEntry4Converter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout Padding="30, 90, 30, 0">
+            <Entry x:Name="HiddenEntry" IsVisible="False" Text="{Binding Pin}" Keyboard="Numeric" 
+                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Entry.Behaviors>
+                    <behaviors:EntryLengthValidatorBehavior MaxLength="4" />
+                </Entry.Behaviors>
+            </Entry>
+            
+            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                <Entry x:Name="Entry1" WidthRequest="50" HeightRequest="50" IsPassword="True" 
+                    Grid.Row="0" Grid.Column="0" HorizontalTextAlignment="Center" IsEnabled="False"
+                    BindingContext="{x:Reference Name=HiddenEntry}" Margin="0"
+                    Text="{Binding Path=Text, Mode=OneWay, Converter={StaticResource PinEntry1Converter}}" />
+
+                <Entry x:Name="Entry2" WidthRequest="50" HeightRequest="50" IsPassword="True"
+                    Grid.Row="0" Grid.Column="1" HorizontalTextAlignment="Center"  IsEnabled="False"
+                    BindingContext="{x:Reference Name=HiddenEntry}"
+                    Text="{Binding Path=Text, Mode=OneWay, Converter={StaticResource PinEntry2Converter}}" />
+
+                <Entry x:Name="Entry3" WidthRequest="50" HeightRequest="50" IsPassword="True" 
+                    Grid.Row="0" Grid.Column="2" HorizontalTextAlignment="Center" IsEnabled="False"
+                    BindingContext="{x:Reference Name=HiddenEntry}"
+                    Text="{Binding Path=Text, Mode=OneWay, Converter={StaticResource PinEntry3Converter}}" />
+
+                <Entry x:Name="Entry4" WidthRequest="50" HeightRequest="50" IsPassword="True" 
+                    Grid.Row="0" Grid.Column="3" HorizontalTextAlignment="Center"  IsEnabled="False"
+                    BindingContext="{x:Reference Name=HiddenEntry}"
+                    Text="{Binding Path=Text, Mode=OneWay, Converter={StaticResource PinEntry4Converter}}" />
+            </Grid>
+
+            <StackLayout Margin="0, 10, 0, 0">
+                <Label Text="PIN should be 4 digits. Please try again." TextColor="Red" IsVisible="{Binding ShowsError}" />
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
