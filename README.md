@@ -109,7 +109,7 @@ public class MainPageViewModel: BindableObject {
     }
 ```
     
-And then attach the viewmodel class to the related page class.
+And then attach the viewmodel class to the related page class and make sure the hidden Entry gets focus when page is loading.
 ```C#
 public partial class MainPage : ContentPage
 {
@@ -120,12 +120,70 @@ public partial class MainPage : ContentPage
 
             Appearing += (object sender, EventArgs e) => {
                 HiddenEntry.Focus();
-            };
-
-            this.HiddenEntry.Unfocused += (object sender, FocusEventArgs e) => {
-                HiddenEntry.Focus();
-                base.OnAppearing();
-            };
+            };            
         }
 }
+```
+
+And at last, create the value converter for each visible Entry box so that they can show/hide the black dot when user is entering/deleting a digit.
+```C#
+public class PinEntry1Converter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var s = (String)value;
+            if (!string.IsNullOrEmpty(s)) {
+                return s.Substring(0, 1);
+            } else {
+                return "";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PinEntry2Converter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var s = (String)value;
+            if (!string.IsNullOrEmpty(s) && s.Length > 1) {
+                return s.Substring(1, 1);
+            } else {
+                return "";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PinEntry3Converter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var s = (String)value;
+            if (!string.IsNullOrEmpty(s) && s.Length > 2) {
+                return s.Substring(2, 1);
+            } else {
+                return "";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PinEntry4Converter : IValueConverter {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+            var s = (String)value;
+            if (!string.IsNullOrEmpty(s) && s.Length > 3) {
+                return s.Substring(3, 1);
+            } else {
+                return "";
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+            throw new NotImplementedException();
+        }
+    }
 ```
