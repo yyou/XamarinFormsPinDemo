@@ -187,3 +187,25 @@ public class PinEntry1Converter : IValueConverter {
         }
     }
 ```
+
+The biggest issue with this solution is that when user taps any space on the page insteading of tapping a digit on soft keyboard, the soft keyboard will disappear and can't get it back. To solve this issue, we need to make sure the soft keyboard is always on and the current focus is always on the hidden entry:
+```C#
+public partial class MainPage : ContentPage
+{
+	public MainPage()
+	{
+            InitializeComponent();
+            BindingContext = new MainPageViewModel();
+
+            Appearing += (object sender, EventArgs e) => {
+                HiddenEntry.Focus();
+            };
+
+            //this event handler make sure control focus is always on the hidden entry.
+            this.HiddenEntry.Unfocused += (object sender, FocusEventArgs e) => {
+                HiddenEntry.Focus();
+                base.OnAppearing();
+            };
+        }
+}
+```
