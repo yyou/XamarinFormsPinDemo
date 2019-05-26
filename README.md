@@ -209,3 +209,5 @@ public partial class MainPage : ContentPage
         }
 }
 ```
+
+More details please see the source code files and I also added a small video file for demostration 'Demo.mp4'.
