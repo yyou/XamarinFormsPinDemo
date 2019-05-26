@@ -107,12 +107,12 @@ public class MainPageViewModel: BindableObject {
             return true;
         }
     }
-    ```
+```
     
- And then attach the viewmodel class to the related page class.
- ```C#
- public partial class MainPage : ContentPage
- {
+And then attach the viewmodel class to the related page class.
+```C#
+public partial class MainPage : ContentPage
+{
 	public MainPage()
 	{
 	    InitializeComponent();
